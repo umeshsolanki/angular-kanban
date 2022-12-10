@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ErpHttpService } from '../common/erpHttpCommon.service';
 import { HttpClient } from '@angular/common/http';
-
-export interface SellerOrder {
-  name: string
-  mob: string
-}
+import {SellerOrder} from "./sales.modals";
 
 @Injectable({ providedIn: 'root' })
 export class OrdersService extends ErpHttpService<SellerOrder> {
 
   moduleUrl(): string {
-    return "sellerOrder"
+    return "sellersOrder"
   }
 
   constructor(http: HttpClient) {

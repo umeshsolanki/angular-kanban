@@ -61,7 +61,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-kanban:build:production"
+              "browserTarget": "angular-kanban:build:production",
+              "proxyConfig": "./proxy.conf.json"
             },
             "development": {
               "browserTarget": "angular-kanban:build:development"
@@ -96,5 +97,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

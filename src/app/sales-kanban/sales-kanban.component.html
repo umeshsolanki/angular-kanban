@@ -1,8 +1,10 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-lg-3">
-      <h2>New <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">+</button></h2>
-      <div class="modal" tabindex="-1" id="exampleModal">
+      <h2>New
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newOrderModal">+</button>
+      </h2>
+      <div class="modal" tabindex="-1" id="newOrderModal">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -10,49 +12,87 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form [formGroup]="newSaleControlData">
+                <div formGroupName="cust">
                   <div class="mb-3">
                     <label for="name" class="col-form-label">Name:</label>
-                    <input type="text" [(ngModel)]="newTarget.name" class="form-control" name="name" id="name" />
+                    <input type="text" formControlName="name" class="form-control" id="name"/>
                   </div>
                   <div class="mb-3">
                     <label for="mob" class="col-form-label">Mob:</label>
-                    <input type="text" class="form-control" [(ngModel)]="newTarget.mob" name="mob" id="mob">
+                    <input type="text" class="form-control" formControlName="mob" id="mob">
                   </div>
+                </div>
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" (click)="newOrder(newTarget)" class="btn btn-primary">Save changes</button>
+              <button type="button" (click)="newOrder()" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div cdkDropList #newOrderstUi="cdkDropList" [cdkDropListData]="newOrders" [cdkDropListConnectedTo]="[followupListUi]" class="drag-list"
-        (cdkDropListDropped)="drop($event)">
-        <div class="drag-item" *ngFor="let item of newOrders" cdkDrag>{{item.name}}</div>
+      <div cdkDropList #newOrderstUi="cdkDropList" [cdkDropListData]="newOrders"
+           [cdkDropListConnectedTo]="[followupListUi]" class="drag-list"
+           (cdkDropListDropped)="drop($event)">
+        <div class="drag-item" *ngFor="let item of newOrders" cdkDrag>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{item.orderNo}}</h5>
+              <p class="card-text">{{item.recdOn | date: 'dd/MM/yyyy'}}</p>
+              <p>{{item.cust.name}}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-12 col-lg-3">
       <h2>Followup</h2>
-      <div cdkDropList #followupListUi="cdkDropList" [cdkDropListData]="followupOrders" [cdkDropListConnectedTo]="[newOrderstUi,serviceListUi]" class="drag-list"
-        (cdkDropListDropped)="drop($event)">
-        <div class="drag-item" *ngFor="let item of followupOrders" cdkDrag>{{item.name}}</div>
+      <div cdkDropList #followupListUi="cdkDropList" [cdkDropListData]="followupOrders"
+           [cdkDropListConnectedTo]="[newOrderstUi,serviceListUi]" class="drag-list"
+           (cdkDropListDropped)="drop($event)">
+        <div class="drag-item" *ngFor="let item of followupOrders" cdkDrag>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{item.orderNo}}</h5>
+              <p class="card-text">{{item.recdOn | date: 'dd/MM/yyyy'}}</p>
+              <p>{{item.cust.name}}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-12 col-lg-3">
       <h2>Service</h2>
-      <div cdkDropList #serviceListUi="cdkDropList" [cdkDropListData]="serviceOrders" [cdkDropListConnectedTo]="[followupListUi,closedListUi]"  class="drag-list"
-          (cdkDropListDropped)="drop($event)">
-        <div class="drag-item" *ngFor="let item of serviceOrders" cdkDrag>{{item.name}}</div>
+      <div cdkDropList #serviceListUi="cdkDropList" [cdkDropListData]="serviceOrders"
+           [cdkDropListConnectedTo]="[followupListUi,closedListUi]" class="drag-list"
+           (cdkDropListDropped)="drop($event)">
+        <div class="drag-item" *ngFor="let item of serviceOrders" cdkDrag>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{item.orderNo}}</h5>
+              <p class="card-text">{{item.recdOn | date: 'dd/MM/yyyy'}}</p>
+              <p>{{item.cust.name}}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-12 col-lg-3">
       <h2>Completed</h2>
-      <div cdkDropList #closedListUi="cdkDropList" [cdkDropListData]="closedOrders" [cdkDropListConnectedTo]="[serviceListUi]" class="drag-list"
-       (cdkDropListDropped)="drop($event)">
-        <div class="drag-item" *ngFor="let item of closedOrders" cdkDrag>{{item.name}}</div>
+      <div cdkDropList #closedListUi="cdkDropList" [cdkDropListData]="closedOrders"
+           [cdkDropListConnectedTo]="[serviceListUi]" class="drag-list"
+           (cdkDropListDropped)="drop($event)">
+        <div class="drag-item" *ngFor="let item of closedOrders" cdkDrag>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{item.orderNo}}</h5>
+              <p class="card-text">{{item.recdOn | date: 'dd/MM/yyyy'}}</p>
+              <p>{{item.cust.name}}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

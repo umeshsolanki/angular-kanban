@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { SalesKanbanComponent } from './sales-kanban/sales-kanban.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DialogModule } from '@angular/cdk/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,AppRoutingModule,
     DragDropModule, HttpClientModule,
-    DialogModule, FormsModule
+    DialogModule, FormsModule,ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
